@@ -5,21 +5,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t vinothr6/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t vinothr90/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true vinothr6/react-test npm test -- --coverage
+  - docker run -e CI=true vinothr90/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t vinothr6/multi-client ./client
-  - docker build -t vinothr6/multi-nginx ./nginx
-  - docker build -t vinothr6/multi-server ./server
-  - docker build -t vinothr6/multi-worker ./worker
+  - docker build -t vinothr90/multi-client ./client
+  - docker build -t vinothr90/multi-nginx ./nginx
+  - docker build -t vinothr90/multi-server ./server
+  - docker build -t vinothr90/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push $DOCKER_ID/multi-client
-  - docker push $DOCKER_ID/multi-nginx
-  - docker push $DOCKER_ID/multi-server
-  - docker push $DOCKER_ID/multi-worker
-
+  - docker push vinothr90/multi-client
+  - docker push vinothr90/multi-nginx
+  - docker push vinothr90/multi-server
+  - docker push vinothr90/multi-worker
